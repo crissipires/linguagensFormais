@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Sentenças</title>
+  <head>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gerador de Sentenças Aleatórias</h1>
+      <label for="start-symbol">Símbolo Inicial:</label>
+      <input type="text" id="start-symbol" value="S">
+      <br><br>
+      <label for="productions">Produções (ex: S::=aSb|ab):</label>
+      <input type="text" id="productions" value="S::=aSb|ab">
+      <br><br>
+      <button id="generate-btn" type="submit">Gerar Sentença</button>
+      <p id="result"></p>
+    </div>
+    <script type="module" src="/js/script.js"></script>
+  </body>
+  
+</html>
