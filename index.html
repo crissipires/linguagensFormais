@@ -10,16 +10,21 @@
   <body>
     <div class="container">
       <h1>Gerador de Sentenças Aleatórias</h1>
+      <label for="grammar-selection">Escolha uma gramática:</label>
+      
+      <select id="grammar-selection">
+        <option value="S::= aSb|ab">Gramática 1: S ::= aSb | ab</option>
+        <option value="S::= aS|bB; B::= b|aB">Gramática 2: S ::= aS | bB; B ::= b | aB</option>
+        <option value="S::=aA|bB; A::=a; B::=b">Gramática 3: S ::= aA | bB; A ::= a; B ::= b</option>
+      </select>    
+      
       <label for="start-symbol">Símbolo Inicial:</label>
       <input type="text" id="start-symbol" value="S">
-      <br><br>
-      <label for="productions">Produções (ex: S::=aSb|ab):</label>
-      <input type="text" id="productions" value="S::=aSb|ab">
-      <br><br>
+      
       <button id="generate-btn" type="submit">Gerar Sentença</button>
       <p id="result"></p>
     </div>
-    <script type="module" src="/js/script.js"></script>
+    <script type="module" src="/script.js"></script>
   </body>
   
 </html>
