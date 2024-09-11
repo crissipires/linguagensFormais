@@ -20,6 +20,8 @@ export default class Grammar {
             } else if (grammar.nonTerminals.has(top)) {
                 let productions = grammar.productions[top];
                 let randomProduction = productions[Math.floor(Math.random() * productions.length)];
+
+                  // é colocado a produção escolhida na pilha, de trás para frente, isso garante que o símbolo mais à esquerda fique no topo
                 for (let i = randomProduction.length - 1; i >= 0; i--) {
                     stack.push(randomProduction[i]);
                 }
