@@ -1,51 +1,52 @@
 import Grammar from "./js/grammar.js";
 
-document.getElementById('generate-btn').addEventListener('click', generateSentenceFromInput);
+document.getElementById('generate-btn').addEventListener('click', gerarsentencaInput);
 
 function gerarGramatica(input) {
-  let productions = {};
-  let nonTerminals = new Set();
-  let terminals = new Set();
-  let productionRules = input.split(";");
+  let producao = {};
+  let naoTerminais = new Set();
+  let terminais = new Set();
+  let regraProducao = input.split(";");
       
-  productionRules.forEach(rule => {
-    let parts = rule.split("::=");
-    let nonTerminal = parts[0].trim();
-    nonTerminals.add(nonTerminal);
+  regraProducao.forEach(regras => {
+    let particao = regras.split("::=");
+    let naoTerminal = particao[0].trim();
+    naoTerminais.add(naoTerminal);
   });
 
-  productionRules.forEach(rule => {
-    let parts = rule.split("::=");
-    let nonTerminal = parts[0].trim();
+  regraProducao.forEach(regras => {
+    let particao = regras.split("::=");
+    let naoTerminal = particao[0].trim();
 
-    let rules = parts[1].split("|").map(r => r.trim());
-    productions[nonTerminal] = rules;
+    let regra = particao[1].split("|").map(r => r.trim());
+    producao[naoTerminal] = regra;
 
-    rules.forEach(rule => {
-      for (let symbol of rule) {
-        if (!nonTerminals.has(symbol)) {  
-          terminals.add(symbol);
+    regra.forEach(regras => {
+      for (let simbolo of regras) {
+        if (!naoTerminais.has(simbolo)) {  
+          terminais.add(simbolo);
         }
       }
     });
   });
 
-  return { nonTerminals: [...nonTerminals], terminals: [...terminals], productions };
+  return { naoTerminais: [...naoTerminais], terminais: [...terminais], producao };
 }
 
-function generateSentenceFromInput() {
-  const startSymbol = document.getElementById('start-symbol').value.trim().toUpperCase();
-  const inputProductions = document.getElementById('grammar-selection').value.trim();
+function gerarsentencaInput() {
+  const simboloInicial = document.getElementById('start-symbol').value.trim().toUpperCase();
+  const inputProducoes = document.getElementById('grammar-selection').value.trim();
 
-  const { nonTerminals, productions, terminals } = gerarGramatica(inputProductions);
+  const { naoTerminais, producao, terminais } = gerarGramatica(inputProducoes);
 
-  if (!nonTerminals.includes(startSymbol)) {
-    document.getElementById('result').innerHTML = `<span class="error">Erro: O símbolo "${startSymbol}" não está definido nas regras da gramática.</span>`;
+  if (!naoTerminais.includes(simboloInicial)) {
+    document.getElementById('result').innerHTML = `<span class="error">Erro: O símbolo "${simboloInicial}" não está definido nas regras da gramática.</span>`;
     return;
   }
 
-  const grammar = new Grammar(nonTerminals, terminals, productions, startSymbol);
-  const result = Grammar.deriveSentence(grammar);
+  const grammar = new Grammar(naoTerminais, terminais, producao, simboloInicial);
+  const result = grammar.derivarSentenca(grammar);
+
   document.getElementById('result').textContent = `Sentença gerada: ${result}`;
 }
 

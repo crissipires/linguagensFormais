@@ -1,33 +1,33 @@
-export default class Grammar {
-    constructor(nonTerminals, terminals, productions, startSymbol) {
-      this.nonTerminals = new Set(nonTerminals);
-      this.terminals = new Set(terminals);
-      this.productions = productions; 
-      this.startSymbol = startSymbol;
+export default class Gramatica {
+    constructor(naoTerminais, terminais, producoes, simboloInicial) {
+      this.naoTerminais = new Set(naoTerminais);
+      this.terminais = new Set(terminais);
+      this.producoes = producoes; 
+      this.simboloInicial = simboloInicial;
     }
  
-    static deriveSentence(grammar) {
-        let stack = [];
-        let output = '';
+    derivarSentenca(gramatica) {
+        let pilha = [];
+        let saida = '';
     
-        stack.push(grammar.startSymbol);
+        pilha.push(gramatica.simboloInicial);
     
-        while (stack.length > 0) {
-            let top = stack.pop(); 
+        while (pilha.length > 0) {
+            let topo = pilha.pop(); 
         
-            if (grammar.terminals.has(top)) {
-                output += top;
-            } else if (grammar.nonTerminals.has(top)) {
-                let productions = grammar.productions[top];
-                let randomProduction = productions[Math.floor(Math.random() * productions.length)];
+            if (gramatica.terminais.has(topo)) {
+                saida += topo;
+            } else if (gramatica.naoTerminais.has(topo)) {
+                let producoes = gramatica.producoes[topo];
+                let producaoAleatoria = producoes[Math.floor(Math.random() * producoes.length)];
 
                   // é colocado a produção escolhida na pilha, de trás para frente, isso garante que o símbolo mais à esquerda fique no topo
-                for (let i = randomProduction.length - 1; i >= 0; i--) {
-                    stack.push(randomProduction[i]);
+                for (let i = producaoAleatoria.length - 1; i >= 0; i--) {
+                    pilha.push(producaoAleatoria[i]);
                 }
             }
         }
     
-        return output;
+        return saida;
     } 
 }
